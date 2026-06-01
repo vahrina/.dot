@@ -19,8 +19,8 @@ alias bat="/bin/batcat --color=always --style=numbers,changes"
 # tmux
 alias t="tmux new-session -A -s main"
 # eza
-EZA_OPTS="--icons=auto --group-directories-first --git --no-time --no-filesize"
-alias l="eza $EZA_OPTS -Gx"
+EZA_OPTS="--icons=auto --group-directories-first --git --no-time --no-filesize --classify=always -A"
+alias l="eza $EZA_OPTS -l --no-permissions --octal-permissions --no-user --no-git"
 alias ll="eza $EZA_OPTS -la"
 alias lt="eza $EZA_OPTS -Tal --level=3 --no-permissions --octal-permissions"
 # python3
