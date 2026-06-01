@@ -23,6 +23,8 @@ EZA_OPTS="--icons=auto --group-directories-first --git --no-time --no-filesize -
 alias l="eza $EZA_OPTS -l --no-permissions --octal-permissions --no-user --no-git"
 alias ll="eza $EZA_OPTS -la"
 alias lt="eza $EZA_OPTS -Tal --level=3 --no-permissions --octal-permissions"
+alias lf="eza $EZA_OPTS -lf"
+alias ldir="eza $EZA_OPTS -lD"
 # python3
 alias py="python3"
 alias pip="pip3"
