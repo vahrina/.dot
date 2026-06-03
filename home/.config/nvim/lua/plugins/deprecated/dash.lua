@@ -1,6 +1,3 @@
--- ~/.config/nvim/lua/plugins/dashboard.lua
--- Minimal aesthetic dashboard for LazyVim
-
 return {
   {
     "folke/snacks.nvim",
@@ -53,17 +50,17 @@ return {
           -- ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣦⡵⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
           --           ]],
           keys = {
-            { icon = "󰍉 ", key = "f", desc = "find file", action = ":lua LazyVim.pick()()" },
-            { icon = "󰋚 ", key = "r", desc = "recent", action = ":lua LazyVim.pick('oldfiles')()" },
+            { icon = "󰍉 ", key = "f", desc = "find", action = ":lua LazyVim.pick()()" },
+            { icon = "󰋚 ", key = "h", desc = "hist", action = ":lua LazyVim.pick('oldfiles')()" },
             { icon = "󰒲 ", key = "l", desc = "lazy", action = ":Lazy" },
-            { icon = "󰊢 ", key = "G", desc = "git", action = ":lua Snacks.lazygit()" },
-            { icon = "󱙌 ", key = "x", desc = "extras", action = ":LazyExtras" },
+            { icon = "󰒓", key = "c", desc = "conf", action = ":lua LazyVim.pick.config_files()()" },
+            { icon = "󱙌 ", key = "x", desc = "extr", action = ":LazyExtras" },
           },
         },
 
         sections = {
           { section = "header", padding = { 0, 0, 1, 0 } },
-          { section = "keys", gap = 1, padding = { 0, 0, 1, 0 } },
+          { section = "keys", gap = 1, padding = { 0, 0, 0, 0 } },
           { section = "startup", padding = { 0, 0, 0, 0 } },
         },
 
@@ -71,7 +68,7 @@ return {
           key = function(item)
             return {
               { "  " .. item.key .. "   ", hl = "SnacksDashboardKey" },
-              { item.desc, hl = "SnacksDashboardDesc" },
+              -- { item.desc, hl = "SnacksDashboardDesc" },
             }
           end,
         },

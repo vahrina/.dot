@@ -11,9 +11,8 @@ vim.api.nvim_create_autocmd("InsertEnter", {
   end,
 })
 
-vim.api.nvim_create_autocmd("ModeChanged", {
+vim.api.nvim_create_autocmd("InsertLeave", {
   group = g,
-  pattern = "*:n", -- any mode ~> normal mode
   callback = function()
     vim.opt.relativenumber = true
   end,

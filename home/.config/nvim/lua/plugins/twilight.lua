@@ -1,13 +1,15 @@
 return {
   "folke/twilight.nvim",
+  keys = {
+    { "<leader>tw", "<cmd>Twilight<cr>", desc = "toggle twilight" },
+  },
   event = "BufReadPost",
   opts = {
-    context = 10,
+    context = 6,
     treesitter = true,
     dimming = {
-      alpha = 0.3,
+      alpha = 0.25,
       color = { "Normal", "#cdd6f4" },
-      term_bg = "#1e1e2e",
       inactive = false,
     },
     expand = {
@@ -16,10 +18,7 @@ return {
       "table",
       "if_statement",
     },
-    exclude = { "txt", "help" },
-  },
-  keys = {
-    { "<leader>tw", "<cmd>Twilight<cr>", desc = "toggle twilight" },
+    exclude = { "txt", "help", "markdown" },
   },
   config = function(_, opts)
     require("twilight").setup(opts)

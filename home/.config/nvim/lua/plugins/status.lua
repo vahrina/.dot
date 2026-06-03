@@ -15,9 +15,6 @@ return {
       set_hl(0, "MiniStatuslineModeCommand", { fg = "#1e1e2e", bg = "#f9e2af", bold = true })
       set_hl(0, "MiniStatuslineModeOther", { fg = "#1e1e2e", bg = "#94e2d5", bold = true })
 
-      -- branch, pct, row:col
-      set_hl(0, "MiniStatuslineDevinfo", { fg = "#6c7086", bg = "#181825" })
-
       -- filename
       set_hl(0, "MiniStatuslineFilename", { fg = "#a6adc8", bg = "#181825" })
 
@@ -26,27 +23,7 @@ return {
 
       -- configuration
       local statusline = require("mini.statusline")
-      -- put this inside your config function, before statusline.setup
-      local last_key = ""
-      vim.on_key(function(key)
-        local key_name = vim.fn.keytrans(key)
 
-        if key == " " or key_name:match("^<t_") then
-          key_name = "<Space>"
-        end
-
-        if
-          key_name == ""
-          or key_name == "<CR>"
-          or key_name == "<Esc>"
-          or key_name == "<BS>"
-          or key_name:match("^<C%-.>$")
-        then
-          last_key = ""
-        else
-          last_key = key_name
-        end
-      end, vim.api.nvim_create_namespace("statusline_key"))
       statusline.setup({
         content = {
           active = function()
@@ -65,17 +42,14 @@ return {
               pct = math.floor(row / line_count * 100) .. "%%"
             end
             col = col + 1
-            local time = os.date("%H:%M")
             local keys = vim.fn.reg_recording() ~= "" and "rec @" .. vim.fn.reg_recording() or ""
             return statusline.combine_groups({
               { hl = mode_hl, strings = { mode:sub(1, 1) } },
               { hl = "MiniStatuslineDevinfo", strings = { branch } },
               { hl = "MiniStatuslineFilename", strings = { filename, icon } },
               "%=",
-              { hl = "MiniStatuslineFilename", strings = { last_key } },
               { hl = "MiniStatuslineDevinfo", strings = { pct } },
               { hl = "MiniStatuslineDevinfo", strings = { row .. ":" .. col } },
-              { hl = mode_hl, strings = { time } },
             })
           end,
           inactive = function()
