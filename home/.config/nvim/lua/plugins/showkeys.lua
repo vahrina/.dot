@@ -10,9 +10,9 @@ return {
       border = "rounded",
     },
 
-    timeout = 1,
-    maxkeys = 5,
-    position = "bottom-right",
+    timeout = 3,
+    maxkeys = 7,
+    position = "top-right",
     show_count = true,
   },
   config = function(_, opts)
