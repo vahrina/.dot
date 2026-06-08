@@ -1,3 +1,11 @@
+# globals
+alias -g NE='2>/dev/null'
+alias -g JQ='| jq'
+alias -g H='| head'
+alias -g T='| tail -f'
+alias -g C='| xclip -selection clipboard'
+
+
 # -- safety/verbosity
 for cmd in cp mv ln;        do alias $cmd="$cmd -v"; done
 for cmd in chmod chown;     do alias $cmd="$cmd -vc"; done
