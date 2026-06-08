@@ -26,11 +26,9 @@ unsetopt BEEP
 # -- plugins
 plugins=(
   git
-  gitfast
-  colorize
   history-substring-search
-  ssh
-  zsh-syntax-highlighting)
+  zsh-syntax-highlighting
+  vi-mode)
 source $ZSH/oh-my-zsh.sh
 
 # -- load config

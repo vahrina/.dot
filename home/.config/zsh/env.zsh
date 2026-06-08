@@ -12,12 +12,25 @@ GOPATH="/usr/local/go/packages"
 # pnpm
 PNPM_HOME="/home/vah/.local/share/pnpm"
 
+
+# nvm lazy load
+NVM_DIR="$HOME/.nvm"
+_nvm_node_bin="$NVM_DIR/versions/node/$(ls $NVM_DIR/versions/node 2>/dev/null | tail -1)/bin"
+nvm() {
+  unfunction nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  nvm "$@"
+}
+
 path=(
   "$HOME/.local/bin"
   "$HOME/.cargo/bin"
   "$GOROOT/bin"
   "$GOPATH/bin"
   "$PNPM_HOME/bin"
+  "$_nvm_node_bin"
+  "$HOME/bin"
   $path
 )
 
@@ -36,15 +49,6 @@ LESS_TERMCAP_ue=$'\e[0m'
 LESS_TERMCAP_us=$'\e[1;38;5;217m'
 LESS_TERMCAP_mr=$'\e[7m'
 LESS_TERMCAP_mh=$'\e[2m'
-
-# nvm lazy load
-NVM_DIR="$HOME/.nvm"
-nvm() {
-  unfunction nvm
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-  nvm "$@"
-}
 
 # win
 WIN_HOME="/mnt/c/Users/${USERNAME:-$(whoami)}"
