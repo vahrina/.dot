@@ -1,8 +1,10 @@
 hist() {
-  local selected
+  local selected ret
   selected=$(
     fc -nrl 1 \
       | fzf \
+        --exact \
+        --tiebreak=index \
         --height=45% \
         --border=rounded \
         --pointer='~' \
@@ -12,7 +14,10 @@ hist() {
     )
 
     ret=$?
-    [[ $ret -eq 0 ]] && BUFFER=$selected && CURSOR=$#BUFFER
+    [[ $ret -eq 0 && -n $selected ]] && {
+      BUFFER="$selected"
+      CURSOR=${#BUFFER}
+    }
     zle reset-prompt
 }
 zle -N hist
