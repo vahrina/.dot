@@ -12,16 +12,18 @@ GOPATH="/usr/local/go/packages"
 # pnpm
 PNPM_HOME="/home/vah/.local/share/pnpm"
 
-
 # nvm lazy load
 NVM_DIR="$HOME/.nvm"
-_nvm_node_bin="$NVM_DIR/versions/node/$(ls $NVM_DIR/versions/node 2>/dev/null | tail -1)/bin"
 nvm() {
-  unfunction nvm
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  unset -f nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
   nvm "$@"
 }
+
+if [[ -d "$NVM_DIR/versions/node" ]]; then
+  path+=($NVM_DIR/versions/node/*/bin(N-/))
+fi
 
 path=(
   "$HOME/.local/bin"
@@ -29,7 +31,6 @@ path=(
   "$GOROOT/bin"
   "$GOPATH/bin"
   "$PNPM_HOME/bin"
-  "$_nvm_node_bin"
   "$HOME/bin"
   $path
 )
