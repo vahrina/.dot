@@ -4,6 +4,7 @@ alias -g JQ='| jq'
 alias -g H='| head'
 alias -g T='| tail -f'
 alias -g C='| xclip -selection clipboard'
+alias -g G='| rg -S'
 
 
 # -- safety/verbosity

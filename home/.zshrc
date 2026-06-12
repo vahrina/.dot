@@ -17,7 +17,11 @@ unsetopt BEEP
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 source "$ZINIT_HOME/zinit.zsh"
 
+autoload -Uz compinit && compinit
+
 zinit snippet OMZP::git
+zinit snippet OMZL::key-bindings.zsh
+zinit snippet OMZL::completion.zsh
 zinit light zsh-users/zsh-history-substring-search
 zinit light zsh-users/zsh-syntax-highlighting
 
