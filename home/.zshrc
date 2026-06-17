@@ -31,7 +31,6 @@ for f in "$HOME"/.config/zsh/{env.zsh,alias.zsh,keybind.zsh,functions/*.zsh}; do
 # -- rest stuff
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh --cmd zd)"
-[[ $PWD == /mnt/c* ]] && cd ~
 
 # -- custom logo, see /.local/bin/inf
 inf

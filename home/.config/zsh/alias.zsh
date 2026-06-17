@@ -3,7 +3,6 @@ alias -g NE='2>/dev/null'
 alias -g JQ='| jq'
 alias -g H='| head'
 alias -g T='| tail -f'
-alias -g C='| xclip -selection clipboard'
 alias -g G='| rg -S'
 
 
@@ -22,7 +21,7 @@ alias j="jobs -l"
 
 # -- ext binaries
 # nvim
-for cmd in v vim;           do alias $cmd="nvim"; done
+for cmd in v vi vim;        do alias $cmd="nvim"; done
 # bat
 alias bat="/bin/batcat --color=always --style=numbers,changes"
 # tmux

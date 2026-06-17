@@ -5,6 +5,7 @@
 format = """
 $username\
 $hostname\
+${custom.ip}\
 $directory\
 $git_branch\
 $git_state\
@@ -19,21 +20,30 @@ $docker_context\
 $character"""
 
 # --- top prompt, user, dir, dur
-
 [character]
-success_symbol = "[λ](fg:#d4c5e2)"
-error_symbol = "[ω](fg:#ffb5a7)"
-vimcmd_symbol = "[δ](fg:#b8c9d8)"
+success_symbol = "[:](fg:#a8e6a3)"
+error_symbol = "[!](fg:#ffb5a7)"
 
 [username]
 show_always = true
-format = "[$user]($style) "
-style_user = "fg:#d4c5e2"
+format = "[$user]($style)"
+style_user = "fg:#a8e6a3"
 style_root = "fg:#ffb5a7"
 
+
+[hostname]
+ssh_only = false
+format = "[@$hostname]($style)"
+style = "fg:#a8e6a3"
+
+[custom.ip]
+command = "ip -4 addr show eth0 | grep -oP '(?<=inet )[^/]+' | cut -d. -f4"
+when = "true"
+format = "[.${output}]($style) "
+style = "bright-black"
 [directory]
 style = "bright-black"
-home_symbol = "?"
+home_symbol = "π"
 
 [cmd_duration]
 format = "[$duration]($style) "
@@ -41,7 +51,6 @@ style = "bright-black"
 show_milliseconds = false
 
 # --- git related
-
 [git_branch]
 format = "[$branch]($style)"
 style = "bright-black"
@@ -55,7 +64,7 @@ modified = "​"
 staged = "​"
 renamed = "​"
 deleted = "​"
-stashed = "≡"
+stashed = "≡ "
 ahead = "+${count} "
 behind = "-${count} "
 diverged = "+${ahead_count}-${behind_count} "
@@ -65,7 +74,6 @@ format = '\([$state( $progress_current/$progress_total)]($style)\) '
 style = "bright-black"
 
 # --- languages
-
 [python]
 format = '[$virtualenv$symbol]($style) '
 symbol = "🐍"

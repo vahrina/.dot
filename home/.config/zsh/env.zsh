@@ -2,12 +2,13 @@ set -a
 typeset -U path
 
 # editor/visual
-[[ -n $SSH_CONNECTION ]] && EDITOR=vim || EDITOR=nvim
+[[ -n $SSH_CONNECTION ]] && EDITOR=nvim || EDITOR=vim
 VISUAL=$EDITOR
 
 # go bin
 GOROOT="/usr/local/go"
 GOPATH="/usr/local/go/packages"
+GOTELEMETRY=off
 
 # pnpm
 PNPM_HOME="/home/vah/.local/share/pnpm"
@@ -50,9 +51,5 @@ LESS_TERMCAP_ue=$'\e[0m'
 LESS_TERMCAP_us=$'\e[1;38;5;217m'
 LESS_TERMCAP_mr=$'\e[7m'
 LESS_TERMCAP_mh=$'\e[2m'
-
-# win
-WIN_HOME="/mnt/c/Users/${USERNAME:-$(whoami)}"
-TYPST_FONT_PATHS="$WIN_HOME/AppData/Local/Microsoft/Windows/Fonts"
 
 set +a
