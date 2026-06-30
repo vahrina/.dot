@@ -29,7 +29,9 @@ pi 5 usually idle at ~2w, which is extremely low, but how about furthermore decr
   <img src="./assets/l3.png" alt="4:18pm" width="32%">
 </div>
 
-"**does it even matter?**" while some options such as `vc4hdmi` for audio output through hdmi make little to no difference, other options as wifi/bluetooth consume _at least_ a minor margin, this is about microperfections, not a groundbreaking difference ([quote](https://en.wikiquote.org/wiki/Linus_Torvalds) "People say that you should not micro-optimize; but, if what you love is micro-optimization, that's what you should do." / [yt](https://www.youtube.com/watch?v=MShbP3OpASA&t=1330s))
+"**does it even matter?**" while some options such as `vc4hdmi` for audio output through hdmi make little to no difference, other options as wifi/bluetooth consume _at least_ a minor margin, this is about microperfections, not a groundbreaking difference
+
+> "People say that you should not micro-optimize; but, if what you love is micro-optimization, that's what you should do." ([quote](https://en.wikiquote.org/wiki/Linus_Torvalds) / [yt](https://www.youtube.com/watch?v=MShbP3OpASA&t=1330s)
 
 > for older models, have a look into [eeprom](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration), specifically `WAKE_ON_GPIO` dropping tdp from 1-2w down to 0.01w [source](https://www.jeffgeerling.com/blog/2023/reducing-raspberry-pi-5s-power-consumption-140x/), no issue in including it in the eeprom configuration anyway
 
@@ -171,6 +173,7 @@ as stated from the [source](https://www.jeffgeerling.com/blog/2023/reducing-rasp
 **BOOT_ORDER** [->](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_ORDER)
 i encourage you to set `BOOT_ORDER` to the appropriate boot media
 =======
+
 **BOOT_UART** [#](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_UART) & **WAKE_ON_GPIO** [#](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_UART)
 
 as stated from the [source](https://www.jeffgeerling.com/blog/2023/reducing-raspberry-pi-5s-power-consumption-140x/) "I'm including it for completeness"
@@ -188,6 +191,7 @@ lsblk -o NAME,SIZE,TYPE,MOUNTPOINT`
 <<<<<<< HEAD
 see the [BOOT_ORDER](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_ORDER) fields. the pi automatically set it to `0xf461`, which would probe as: `SD CARD` -> `NVME` -> `USB-MSD` -> `RESTART` & because i am running it on a sd card, stripping `USB-MSD` & `NVME` away makes more sense
 =======
+
 as for my pi, it automatically set it to `0xf461`, which would probe as
 
 <div align="center">
@@ -208,6 +212,7 @@ purely cosmetic as it briefly shows a network install prompt after a cold boot, 
 **POWER_OFF_ON_HALT=1** [->](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#POWER_OFF_ON_HALT)
 this is the setting that will reduce the tdp down to 0.01w with the caveat that after a `halt`, pi won't come back on its own when power returns; it needs the physical power button pressed to wake rather than auto recover
 =======
+
 **POWER_OFF_ON_HALT** [#](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#POWER_OFF_ON_HALT)
 
 this is the setting that will reduce the tdp down to 0.01w, with the caveat that after a `halt`, pi won't come back on its own when power returns; it needs the physical power button pressed to wake rather than auto recover
@@ -244,6 +249,7 @@ starting chronologically:
 <<<<<<< HEAD
 **avahi-daemon (socket,service)** [->](https://linux.die.net/man/8/avahi-daemon)
 =======
+
 - **avahi-daemon (socket & service)** [#](https://linux.die.net/man/8/avahi-daemon)
 
 >>>>>>> e52a49c (i cant spell)
@@ -265,6 +271,7 @@ systemctl get-default
 <<<<<<< HEAD
 and there seems to be no difference at all besides sitting atop of `multi-user.target`. for consistency we can change it, but it makes no difference
 =======
+
 & weirdly enough, there is no difference at all, besides sitting atop of `multi-user.target`
 
 ```sh
