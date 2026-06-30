@@ -164,26 +164,56 @@ NET_INSTALL_AT_POWER_ON=0
 POWER_OFF_ON_HALT=1
 ```
 
+<<<<<<< HEAD
 **BOOT_UART** [->](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_UART) & **WAKE_ON_GPIO** [->](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_UART)
 as stated from the [source](https://www.jeffgeerling.com/blog/2023/reducing-raspberry-pi-5s-power-consumption-140x/) "I'm including it for completeness" (unless you're NOT on pi 5)
 
 **BOOT_ORDER** [->](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_ORDER)
 i encourage you to set `BOOT_ORDER` to the appropriate boot media
+=======
+**BOOT_UART** [#](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_UART) & **WAKE_ON_GPIO** [#](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_UART)
+
+as stated from the [source](https://www.jeffgeerling.com/blog/2023/reducing-raspberry-pi-5s-power-consumption-140x/) "I'm including it for completeness"
+
+**BOOT_ORDER** [#](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_ORDER)
+
+i encourage you to set `boot_order` to the appropriate boot media (see [fields](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_ORDER))
+>>>>>>> e52a49c (i cant spell)
 
 ```sh
 lsblk -o NAME,SIZE,TYPE,MOUNTPOINT`
 # mmcblk = sd card, sdX = usb, etc
 ```
 
+<<<<<<< HEAD
 see the [BOOT_ORDER](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_ORDER) fields. the pi automatically set it to `0xf461`, which would probe as: `SD CARD` -> `NVME` -> `USB-MSD` -> `RESTART` & because i am running it on a sd card, stripping `USB-MSD` & `NVME` away makes more sense
+=======
+as for my pi, it automatically set it to `0xf461`, which would probe as
+
+<div align="center">
+
+`sd card` > `nvme` > `usb-msd` > `restart`
+
+</div>
+
+& because i am running it on a sd card, stripping `usb-msd` & `nvme` away makes sense
+
+**NET_INSTALL_AT_POWER_ON** [#](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#NET_INSTALL_AT_POWER_ON)
+>>>>>>> e52a49c (i cant spell)
 
 **NET_INSTALL_AT_POWER_ON** [->](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#NET_INSTALL_AT_POWER_ON)
 purely cosmetic as it briefly shows a network install prompt after a cold boot, basically irrelevant on a headless box, also worth disabling if your network does **NOT** support PXE/network install serving
 
+<<<<<<< HEAD
 **POWER_OFF_ON_HALT=1** [->](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#POWER_OFF_ON_HALT)
 this is the setting that will reduce the tdp down to 0.01w with the caveat that after a `halt`, pi won't come back on its own when power returns; it needs the physical power button pressed to wake rather than auto recover
+=======
+**POWER_OFF_ON_HALT** [#](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#POWER_OFF_ON_HALT)
 
-### swappiness
+this is the setting that will reduce the tdp down to 0.01w, with the caveat that after a `halt`, pi won't come back on its own when power returns; it needs the physical power button pressed to wake rather than auto recover
+>>>>>>> e52a49c (i cant spell)
+
+### swappiness [#](https://askubuntu.com/questions/103915/how-do-i-configure-swappiness)
 
 to reduce wear on sd cards, feel free to lower the value of `vm.swappiness` from 60 to 10
 
@@ -198,7 +228,7 @@ to permanently set it, append it to the end of `/etc/sysctl.conf`
 sudo tee -a /etc/sysctl.conf <<< 'vm.swappiness=10' # or manually add it
 ```
 
-### services
+### services [#](https://www.geeksforgeeks.org/linux-unix/systemctl-in-unix/)
 
 it's good to verify you really don't need a certain service running :)
 
@@ -211,7 +241,12 @@ journalctl -u service
 
 starting chronologically:
 
+<<<<<<< HEAD
 **avahi-daemon (socket,service)** [->](https://linux.die.net/man/8/avahi-daemon)
+=======
+- **avahi-daemon (socket & service)** [#](https://linux.die.net/man/8/avahi-daemon)
+
+>>>>>>> e52a49c (i cant spell)
 primarily used to advertise a local ip address & static services as `.local`, e.g. you ssh into your pi with `ssh user@pi.local`
 
 ```sh
@@ -227,7 +262,24 @@ there seems to be a lot of confusion coming from this, as installing a server is
 systemctl get-default
 ```
 
+<<<<<<< HEAD
 and there seems to be no difference at all besides sitting atop of `multi-user.target`. for consistency we can change it, but it makes no difference
+=======
+& weirdly enough, there is no difference at all, besides sitting atop of `multi-user.target`
+
+```sh
+systemctl list-dependencies graphical.target
+
+graphical.target
+○ ├─display-manager.service
+○ ├─systemd-update-utmp-runlevel.service
+● ├─udisks2.service
+● └─multi-user.target
+●   ├─apport.service
+```
+
+change it & move on
+>>>>>>> e52a49c (i cant spell)
 
 ```sh
 sudo systemctl set-default multi-user.target
