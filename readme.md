@@ -35,13 +35,13 @@ a pi 5 usually idles at ~2w, which is extremely low, but how about furthermore d
 
 | do you need this? | see if it's on | turn it off! |
 |:---:|:---:|:---:|
-| bluetooth | `rfkill list bluetooth` | [#](###bluetooth) |
-| wifi | `rfkill list wifi` | [#](###wifi) |
-| hdmi audio | `cat /proc/asound/cards` | [#](###audio) |
-| power led | 👁️ (`dtparam -a \| grep 'act-led'`) | [#](###pwr-led) |
-| eeprom | `rpi-eeprom-config` | [#](###eeprom) |
-| swappiness | `cat /proc/sys/vm/swappiness` | [#](###swappiness) |
-| services | - | [#](###services) |
+| bluetooth | `rfkill list bluetooth` | [#](#bluetooth) |
+| wifi | `rfkill list wifi` | [#](#wifi) |
+| hdmi audio | `cat /proc/asound/cards` | [#](#audio) |
+| power led | 👁️ (`grep 'act-led' < <(dtparam -a)`) | [#](#pwr-led) |
+| eeprom | `rpi-eeprom-config` | [#](#eeprom) |
+| swappiness | `cat /proc/sys/vm/swappiness` | [#](#swappiness) |
+| services | - | [#](#services) |
 
 > for older models, have a look into [eeprom](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration), specifically `WAKE_ON_GPIO` dropping tdp from 1-2w down to 0.01w ([source](https://www.jeffgeerling.com/blog/2023/reducing-raspberry-pi-5s-power-consumption-140x/)), no harm in setting `WAKE_ON_GPIO` regardless of the model
 
