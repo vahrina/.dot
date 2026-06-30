@@ -1,8 +1,8 @@
-# pi 5
+# pi 5 "homelab" setup
 
 things i've set up so far on my headless pi, homelabbing has gotten to me
 
-## the usual (specs)
+## specs
 
 - ubuntu 24.04.4 lts
 - 4gb ram
@@ -13,15 +13,15 @@ things i've set up so far on my headless pi, homelabbing has gotten to me
 - pihole
 - grocery list (for mom!! :D)
 - navidrome + slskd
-- tailwind
+- tailscale
 - ntfy
 - ssh
 
-...and all that for mere ~500-700Mi
+...& much more for mere ~500-700Mi
 
 ## cut to the chase
 
-pi 5 usually idle at ~2w, which is extremely low, but how about furthermore decreasing it? to give you a glimpse:
+a pi 5 usually idles at ~2w, which is extremely low, but how about furthermore decreasing it? to give you a glimpse:
 
 <div align="center">
   <img src="./assets/l1.png" alt="1:33pm" width="32%">
@@ -31,19 +31,19 @@ pi 5 usually idle at ~2w, which is extremely low, but how about furthermore decr
 
 "**does it even matter?**" while some options such as `vc4hdmi` for audio output through hdmi make little to no difference, other options as wifi/bluetooth consume _at least_ a minor margin, this is about microperfections, not a groundbreaking difference
 
-> "People say that you should not micro-optimize; but, if what you love is micro-optimization, that's what you should do." ([quote](https://en.wikiquote.org/wiki/Linus_Torvalds) / [yt](https://www.youtube.com/watch?v=MShbP3OpASA&t=1330s)
-
-> for older models, have a look into [eeprom](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration), specifically `WAKE_ON_GPIO` dropping tdp from 1-2w down to 0.01w [source](https://www.jeffgeerling.com/blog/2023/reducing-raspberry-pi-5s-power-consumption-140x/), no issue in including it in the eeprom configuration anyway
+> "People say that you should not micro-optimize; but, if what you love is micro-optimization, that's what you should do." ([quote](https://en.wikiquote.org/wiki/Linus_Torvalds)) / [yt](https://www.youtube.com/watch?v=MShbP3OpASA&t=1330s)
 
 | do you need this? | see if it's on | turn it off! |
 |:---:|:---:|:---:|
-| bluetooth | `rfkill list bluetooth` | [->](###bluetooth) |
-| wifi | `rfkill list wifi` | [->](###wifi) |
-| hdmi audio | `cat /proc/asound/cards` | [->](###audio) |
-| power led | 👁️ (`dtparam -a \| grep 'act-led'`) | [->](###pwr-led) |
-| eeprom | `rpi-eeprom-config` | [->](###eeprom) |
-| swappiness | `cat /proc/sys/vm/swappiness` | [->](###swappiness) |
-| services | - | [->](###services) |
+| bluetooth | `rfkill list bluetooth` | [#](###bluetooth) |
+| wifi | `rfkill list wifi` | [#](###wifi) |
+| hdmi audio | `cat /proc/asound/cards` | [#](###audio) |
+| power led | 👁️ (`dtparam -a \| grep 'act-led'`) | [#](###pwr-led) |
+| eeprom | `rpi-eeprom-config` | [#](###eeprom) |
+| swappiness | `cat /proc/sys/vm/swappiness` | [#](###swappiness) |
+| services | - | [#](###services) |
+
+> for older models, have a look into [eeprom](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration), specifically `WAKE_ON_GPIO` dropping tdp from 1-2w down to 0.01w ([source](https://www.jeffgeerling.com/blog/2023/reducing-raspberry-pi-5s-power-consumption-140x/)), no harm in setting `WAKE_ON_GPIO` regardless of the model
 
 ## turning various things off
 
@@ -55,38 +55,15 @@ arm_64bit=1
 kernel=vmlinuz
 cmdline=cmdline.txt
 initramfs initrd.img followkernel
-
-# Enable the audio output, I2C and SPI interfaces on the GPIO header. As these
-# parameters related to the base device-tree they must appear *before* any
-# other dtoverlay= specification
 dtparam=audio=off
 dtparam=i2c_arm=off
 dtparam=spi=off
-
-# Comment out the following line if the edges of the desktop appear outside
-# the edges of your display
 disable_overscan=0
-
-# If you have issues with audio, you may try uncommenting the following line
-# which forces the HDMI output into HDMI mode instead of DVI (which doesn't
-# support audio output)
-#hdmi_drive=2
-
-# Enable the KMS ("full" KMS) graphics overlay, leaving GPU memory as the
-# default (the kernel is in control of graphics memory with full KMS)
 dtoverlay=vc4-kms-v3d,noaudio
 disable_fw_kms_setup=1
-
-# Enable the serial pins
 enable_uart=1
-
-# Autoload overlays for any recognized cameras or displays that are attached
-# to the CSI/DSI ports. Please note this is for libcamera support, *not* for
-# the legacy camera stack
 camera_auto_detect=0
 display_auto_detect=0
-
-# Config settings specific to arm64
 dtoverlay=dwc2
 
 # reduce overhead
@@ -101,6 +78,8 @@ dtparam=act_led_activelow=off
 dtparam=eth_led0=4
 dtparam=eth_led1=4
 ```
+
+an extensive & well documented `config.txt` can be found [here](https://gist.github.com/GrayJack/2b27cdaf9a6432da7c5d8017a1b99030)
 
 ### bluetooth
 
@@ -128,7 +107,9 @@ dtoverlay=vc4-kms-v3d,noaudio
 
 ### pwr-led
 
-note that you **cannot** disable the **red** led when it is shut down, as it's hardwired to the 5V psu to indicate that power is present, hence setting this through software/device tree params is NOT possible (opaque tape or nail polish will do, no need to unsolder it)
+note that you **cannot** disable the **red** led when it is shut down, as it's hardwired to the 5V psu to indicate that power is present
+
+setting this through software/device tree params is NOT possible (opaque tape or nail polish will do, no need to unsolder it)
 
 ```sh
 dtparam=pwr_led_trigger=none
@@ -139,16 +120,17 @@ dtparam=eth_led0=4
 dtparam=eth_led1=4
 ```
 
-> if `pwr_led_trigger=none` is set, but the pi says "haha no i stay ON", invert the `pwr_lwd_activelow` param to `on`, (like i had to). activity led should be self explanatory
+> if `pwr_led_trigger=none` is set, but the pi says "haha no i stay ON", invert the `pwr_led_activelow` param to `on`, (like i had to). activity led should be self explanatory
 
-### eeprom [->](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-boot-eeprom)
+### eeprom [#](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-boot-eeprom)
 
-inherently, eeprom is superior to flash in a pi, considering there is no permanent i/o ongoing, essentially saving the state of the program in non-volatile memory. a lot of opretations or logs would benefit from an external flash instead, read more [\[1\]](https://www.electronicsforu.com/technology-trends/learn-electronics/eeprom-difference-flash-memory) [\[2\]](https://www.reddit.com/r/embedded/comments/xum8bn/can_someone_explain_me_what_flash_and_eeprom_are/) before turnin things on and off mindlessly [docs](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration)
+inherently, eeprom is superior to flash in a pi, considering there is no permanent i/o ongoing, essentially saving the state of the program in non-volatile memory. a lot of operations or logs would benefit from an external flash instead (read more [\[1\]](https://www.electronicsforu.com/technology-trends/learn-electronics/eeprom-difference-flash-memory) [\[2\]](https://www.reddit.com/r/embedded/comments/xum8bn/can_someone_explain_me_what_flash_and_eeprom_are/) before turning things on & off mindlessly [docs](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration))
+
 firstly update & reboot if everything goes well
 
 ```sh
 sudo rpi-eeprom-update
-# if theres a neweer version, do:
+# if theres a newer version, apply the update
 sudo rpi-eeprom-update -a
 sudo systemctl reboot
 ```
@@ -166,14 +148,6 @@ NET_INSTALL_AT_POWER_ON=0
 POWER_OFF_ON_HALT=1
 ```
 
-<<<<<<< HEAD
-**BOOT_UART** [->](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_UART) & **WAKE_ON_GPIO** [->](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_UART)
-as stated from the [source](https://www.jeffgeerling.com/blog/2023/reducing-raspberry-pi-5s-power-consumption-140x/) "I'm including it for completeness" (unless you're NOT on pi 5)
-
-**BOOT_ORDER** [->](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_ORDER)
-i encourage you to set `BOOT_ORDER` to the appropriate boot media
-=======
-
 **BOOT_UART** [#](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_UART) & **WAKE_ON_GPIO** [#](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_UART)
 
 as stated from the [source](https://www.jeffgeerling.com/blog/2023/reducing-raspberry-pi-5s-power-consumption-140x/) "I'm including it for completeness"
@@ -181,18 +155,13 @@ as stated from the [source](https://www.jeffgeerling.com/blog/2023/reducing-rasp
 **BOOT_ORDER** [#](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_ORDER)
 
 i encourage you to set `boot_order` to the appropriate boot media (see [fields](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_ORDER))
->>>>>>> e52a49c (i cant spell)
 
 ```sh
 lsblk -o NAME,SIZE,TYPE,MOUNTPOINT`
 # mmcblk = sd card, sdX = usb, etc
 ```
 
-<<<<<<< HEAD
-see the [BOOT_ORDER](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#BOOT_ORDER) fields. the pi automatically set it to `0xf461`, which would probe as: `SD CARD` -> `NVME` -> `USB-MSD` -> `RESTART` & because i am running it on a sd card, stripping `USB-MSD` & `NVME` away makes more sense
-=======
-
-as for my pi, it automatically set it to `0xf461`, which would probe as
+my pi automatically set it to `0xf461`, which would probe as
 
 <div align="center">
 
@@ -203,20 +172,12 @@ as for my pi, it automatically set it to `0xf461`, which would probe as
 & because i am running it on a sd card, stripping `usb-msd` & `nvme` away makes sense
 
 **NET_INSTALL_AT_POWER_ON** [#](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#NET_INSTALL_AT_POWER_ON)
->>>>>>> e52a49c (i cant spell)
 
-**NET_INSTALL_AT_POWER_ON** [->](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#NET_INSTALL_AT_POWER_ON)
 purely cosmetic as it briefly shows a network install prompt after a cold boot, basically irrelevant on a headless box, also worth disabling if your network does **NOT** support PXE/network install serving
-
-<<<<<<< HEAD
-**POWER_OFF_ON_HALT=1** [->](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#POWER_OFF_ON_HALT)
-this is the setting that will reduce the tdp down to 0.01w with the caveat that after a `halt`, pi won't come back on its own when power returns; it needs the physical power button pressed to wake rather than auto recover
-=======
 
 **POWER_OFF_ON_HALT** [#](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#POWER_OFF_ON_HALT)
 
 this is the setting that will reduce the tdp down to 0.01w, with the caveat that after a `halt`, pi won't come back on its own when power returns; it needs the physical power button pressed to wake rather than auto recover
->>>>>>> e52a49c (i cant spell)
 
 ### swappiness [#](https://askubuntu.com/questions/103915/how-do-i-configure-swappiness)
 
@@ -230,7 +191,7 @@ vm.swappiness = 60 # by default
 to permanently set it, append it to the end of `/etc/sysctl.conf`
 
 ```sh
-sudo tee -a /etc/sysctl.conf <<< 'vm.swappiness=10' # or manually add it
+sudo tee -a /etc/sysctl.conf <<< 'vm.swappiness=10'
 ```
 
 ### services [#](https://www.geeksforgeeks.org/linux-unix/systemctl-in-unix/)
@@ -246,31 +207,22 @@ journalctl -u service
 
 starting chronologically:
 
-<<<<<<< HEAD
-**avahi-daemon (socket,service)** [->](https://linux.die.net/man/8/avahi-daemon)
-=======
-
 - **avahi-daemon (socket & service)** [#](https://linux.die.net/man/8/avahi-daemon)
 
->>>>>>> e52a49c (i cant spell)
 primarily used to advertise a local ip address & static services as `.local`, e.g. you ssh into your pi with `ssh user@pi.local`
 
 ```sh
 sudo systemctl stop avahi-daemon
 sudo systemctl disable --now avahi-daemon
-sudo apt remove avahi-daemon # include --purge if you are 100% sure you will never need it again
+sudo apt remove avahi-daemon
 ```
 
-**get-default** [->](https://linuxcommandlibrary.com/man/systemctl-get-default)
+**get-default** [#](https://linuxcommandlibrary.com/man/systemctl-get-default)
 there seems to be a lot of confusion coming from this, as installing a server iso still defaults to `graphical.target`, verify yours:
 
 ```sh
 systemctl get-default
 ```
-
-<<<<<<< HEAD
-and there seems to be no difference at all besides sitting atop of `multi-user.target`. for consistency we can change it, but it makes no difference
-=======
 
 & weirdly enough, there is no difference at all, besides sitting atop of `multi-user.target`
 
@@ -286,22 +238,23 @@ graphical.target
 ```
 
 change it & move on
->>>>>>> e52a49c (i cant spell)
 
 ```sh
 sudo systemctl set-default multi-user.target
 ```
 
-**ModemManager** [->](https://github.com/linux-mobile-broadband/ModemManager)
+**ModemManager** [#](https://github.com/linux-mobile-broadband/ModemManager)
+
 DBus-activated daemon which controls mobile broadband (2G/3G/4G) devices & connections
 
 ```sh
 sudo systemctl stop ModemManager
 sudo systemctl disable --now ModemManager
-sudo apt remove modemmanager # include --purge if you are 100% sure you will never need it again
+sudo apt remove modemmanager
 ```
 
-**triggerhappy** [->](https://github.com/wertarbyte/triggerhappy)
+**triggerhappy** [#](https://github.com/wertarbyte/triggerhappy)
+
 a lightweight hotkey daemon for gpio buttons or media controls
 
 ```sh
@@ -309,7 +262,8 @@ sudo systemctl stop triggerhappy
 sudo systemctl disable --now triggerhappy
 ```
 
-**wpa_supplicant** [->](https://linux.die.net/man/8/wpa_supplicant)
+**wpa_supplicant** [#](https://linux.die.net/man/8/wpa_supplicant)
+
 if you don't intend to use wifi (or disabled it earlier in `/boot/firmware/config.txt`), you may also remove the supplicant. highly encouraged to re-enable when using wifi
 
 ```sh
@@ -317,7 +271,7 @@ sudo systemctl stop wpa_supplicant
 sudo systemctl disable --now wpa_supplicant
 ```
 
-and lastly:
+and lastly
 
 ```sh
 sudo apt autoremove
@@ -325,11 +279,15 @@ sudo apt autoremove
 
 ### bonus
 
-if you don't use the builtin [man pages](https://www.man7.org/linux/man-pages/) (e.g. you use [tldr](https://github.com/tldr-pages/tldr), [cht.sh](https://cht.sh/), [explainshell](https://explainshell.com/#) or any other utility), feel free to disable the man page index cache rebuild
+**man pages** [#](https://www.man7.org/linux/man-pages/)
+
+if you don't use the builtin man pages, (e.g. you use [tldr](https://github.com/tldr-pages/tldr), [cht.sh](https://cht.sh/), [explainshell](https://explainshell.com/#) or any other utility), feel free to disable the man page auto update to avoid index cache rebuilds
 
 ```sh
 sudo rm /var/lib/man-db/auto-update
 ```
+
+**x11** [#](https://www.baeldung.com/linux/x11)
 
 it's also common for `x11` to be present in some way & since this is a headless only pi, removing `x11-common` (or any other [dm](https://wiki.archlinux.org/title/Display_manager), e.g. [lightdm](https://github.com/ubuntu/lightdm/)) can also be safely removed
 
