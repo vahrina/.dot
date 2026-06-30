@@ -30,7 +30,6 @@ format = "[$user]($style)"
 style_user = "fg:#a8e6a3"
 style_root = "fg:#ffb5a7"
 
-
 [hostname]
 ssh_only = false
 format = "[@$hostname]($style)"
