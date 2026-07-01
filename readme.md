@@ -39,9 +39,9 @@ a pi 5 usually idles at ~2w, which is extremely low, but how about furthermore d
 | wifi | `rfkill list wifi` | [#](#wifi) |
 | hdmi audio | `cat /proc/asound/cards` | [#](#audio) |
 | power led | 👁️ (`grep 'act-led' < <(dtparam -a)`) | [#](#pwr-led) |
-| eeprom | `rpi-eeprom-config` | [#](#eeprom) |
-| swappiness | `cat /proc/sys/vm/swappiness` | [#](#swappiness) |
-| services | - | [#](#services) |
+| eeprom | `rpi-eeprom-config` | [#](#eeprom-) |
+| swappiness | `cat /proc/sys/vm/swappiness` | [#](#swappiness-) |
+| services | - | [#](#services-) |
 
 > for older models, have a look into [eeprom](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration), specifically `WAKE_ON_GPIO` dropping tdp from 1-2w down to 0.01w ([source](https://www.jeffgeerling.com/blog/2023/reducing-raspberry-pi-5s-power-consumption-140x/)), no harm in setting `WAKE_ON_GPIO` regardless of the model
 
@@ -196,13 +196,13 @@ sudo tee -a /etc/sysctl.conf <<< 'vm.swappiness=10'
 
 ### services [#](https://www.geeksforgeeks.org/linux-unix/systemctl-in-unix/)
 
-it's good to verify you really don't need a certain service running :)
+it's good to verify you really don't need a certain service running before applying irreversible actions :)
 
 ```sh
 systemctl --type=service --state=running --all
 systemctl status service
 systemctl list-dependencies service
-journalctl -u service
+journalctl -u service # optionally --since=today
 ```
 
 starting chronologically:
