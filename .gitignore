@@ -1,3 +1,5 @@
 home/.config/tmux/plugins/
 home/.config/gh/hosts.yml
 home/.local
+home/.config/litecli/history
+home/.config/litecli/log

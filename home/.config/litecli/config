@@ -1,0 +1,12 @@
+[main]
+multi_line = False
+destructive_warning = True
+log_level = WARNING
+pager = less -SRXFi
+table_format = github
+syntax_style = native
+key_bindings = vi
+wider_completion_menu = True
+prompt = '[\d]\n└─ '
+less_chatty = true
+auto_vertical_output = True
