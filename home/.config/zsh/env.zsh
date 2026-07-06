@@ -2,7 +2,7 @@ set -a
 typeset -U path
 
 # editor/visual
-[[ -n $SSH_CONNECTION ]] && EDITOR=vim || EDITOR=nvim
+[[ -n $SSH_CONNECTION ]] && EDITOR=nvim || EDITOR=vim
 VISUAL=$EDITOR
 
 # go bin

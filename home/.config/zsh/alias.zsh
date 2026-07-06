@@ -22,7 +22,7 @@ alias j="jobs -l"
 
 # -- ext binaries
 # nvim
-for cmd in v vim;           do alias $cmd="nvim"; done
+for cmd in v vi vim;        do alias $cmd="nvim"; done
 # bat
 alias bat="/bin/batcat --color=always --style=numbers,changes"
 # tmux

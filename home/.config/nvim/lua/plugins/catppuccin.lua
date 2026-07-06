@@ -6,7 +6,6 @@ return {
     opts = {
       compile = true,
       flavour = "mocha",
-      transparent_background = false,
       term_colors = true,
 
       color_overrides = {
