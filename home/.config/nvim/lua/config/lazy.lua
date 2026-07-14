@@ -23,10 +23,10 @@ require("lazy").setup({
     lazy = false,
     version = false,
   },
-  install = { colorscheme = { "catppuccin" } },
   checker = {
     enabled = true,
-    notify = true,
+    notify = false,
+    frequency = 604800, -- a week
   },
   performance = {
     rtp = {

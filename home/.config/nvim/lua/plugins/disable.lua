@@ -2,7 +2,6 @@ return {
   { "rafamadriz/friendly-snippets", enabled = false },
   { "nvim-mini/mini.ai", enabled = false },
   { "folke/todo-comments.nvim", enabled = false },
-  { "folke/tokyonight.nvim", enabled = false },
   { "nvim-lualine/lualine.nvim", enabled = false },
   { "folke/noice.nvim", enabled = false },
   {
