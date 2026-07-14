@@ -24,7 +24,7 @@ alias j="jobs -l"
 # nvim
 for cmd in v vi vim;        do alias $cmd="nvim"; done
 # bat
-alias bat="/bin/batcat --color=always --style=numbers,changes"
+alias bat="/bin/bat --color=always --style=numbers,changes"
 # tmux
 alias t="tmux new-session -A -s main"
 # eza
@@ -38,3 +38,10 @@ alias ldir="eza $EZA_OPTS -lD"
 alias py="python3"
 alias pip="pip3"
 alias pyvenv="python3 -m venv .venv && source .venv/bin/activate"
+
+# -- package manager
+[ -n "$PKG" ] && {
+    alias s="$PKG -S"
+    alias ss="$PKG -Ss"
+    alias sr="$PKG -Rns"
+}

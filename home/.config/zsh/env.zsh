@@ -51,8 +51,4 @@ LESS_TERMCAP_us=$'\e[1;38;5;217m'
 LESS_TERMCAP_mr=$'\e[7m'
 LESS_TERMCAP_mh=$'\e[2m'
 
-# win
-WIN_HOME="/mnt/c/Users/${USERNAME:-$(whoami)}"
-TYPST_FONT_PATHS="$WIN_HOME/AppData/Local/Microsoft/Windows/Fonts"
-
 set +a

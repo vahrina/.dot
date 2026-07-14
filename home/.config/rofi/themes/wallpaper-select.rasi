@@ -1,0 +1,85 @@
+configuration {
+  modi: "drun";
+  show-icons: true;
+  drun-display-format: "{name}";
+  hover-select: true;
+  font: "Maple Mono NL Regular 12";
+}
+
+@import "default.rasi"
+
+window {
+  width: 780px;
+  location: center;
+  anchor: center;
+  border-radius: 16px;
+  background-color: @background;
+  padding: 24px;
+}
+
+mainbox {
+  children: [ "inputbar", "listview" ];
+  background-color: transparent;
+  spacing: 16px;
+}
+
+inputbar {
+  background-color: transparent;
+  text-color: @foreground;
+  children: [ "entry" ];
+  padding: 4px 0px;
+}
+
+entry {
+  background-color: transparent;
+  text-color: @foreground;
+  placeholder: "search...";
+  placeholder-color: @foreground;
+  horizontal-align: 0.5;
+}
+
+listview {
+  columns: 3;
+  lines: 3;
+  cycle: true;
+  dynamic: true;
+  fixed-height: true;
+  fixed-columns: true;
+  scrollbar: false;
+  layout: vertical;
+  spacing: 12px;
+  background-color: transparent;
+  text-color: @foreground;
+}
+
+element {
+  cursor: pointer;
+  border-radius: 12px;
+  background-color: transparent;
+  text-color: @foreground;
+  orientation: vertical;
+  spacing: 6px;
+  padding: 0px;
+  border: 0px;
+}
+
+element selected {
+  background-color: rgba(255, 255, 255, 8%);
+  border: 0px;
+  padding: 0px;
+}
+
+element-icon {
+  size: 220px;
+  background-color: transparent;
+  text-color: inherit;
+  cursor: inherit;
+  border-radius: 8px;
+}
+
+element-text {
+  background-color: transparent;
+  text-color: inherit;
+  horizontal-align: 0.5;
+  font: "Maple Mono NL Regular 10";
+}

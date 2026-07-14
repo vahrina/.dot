@@ -7,6 +7,12 @@ krn=${"$(</proc/sys/kernel/osrelease)"%%[-_]*}
 shl=${SHELL##*/}
 read t _ </proc/uptime; t=${t%.*}
 upt=$(printf "%d:%02d" $((t/3600)) $((t%3600/60)))
+usr=$USER
+hst=$HOST
+read -r distro _ < /etc/os-release; distro=${distro#*=}
+des=$XDG_CURRENT_DESKTOP
+ter=$TERM
+
 rand() { head -c 6 <(tr -dc 'a-fA-F0-9' </dev/urandom); }
 
 total=0
@@ -17,8 +23,30 @@ for f in $HOME/.config/zsh/{alias.zsh,env.zsh,keybind.zsh,functions/*.zsh}; do
 done
 init=$(printf "%.0f" $(( total * 1000 )))
 
+logo=(
+  "        /\\"
+  "       /  \\"
+  "      /\   \\"
+  "     /      \\"
+  "    /   ,,   \\"
+  "   /   |  |  -\\"
+  "  /_-''    ''-_\\"
+)
+
+stats=(
+  "[0x$(rand)]> usr ][ $usr"
+  "[0x$(rand)]> hst ][ $hst"
+  "[0x$(rand)]> upt ][ $upt"
+  "[0x$(rand)]> krn ][ $krn"
+  "[0x$(rand)]> shl ][ $shl"
+  "[0x$(rand)]> des ][ ${des:l}"
+  "[0x$(rand)]> ter ][ $ter"
+)
+
 echo ""
-echo "- offsets -  $(uname -i)  $init%"
-echo "[0x$(rand)]>  krn  ;  $krn"
-echo "[0x$(rand)]>  shl  ;  $shl"
-echo "[0x$(rand)]>  upt  ;  $upt"
+local max=$(( ${#logo} > ${#stats} ? ${#logo} : ${#stats} ))
+for i in $(seq 1 $max); do
+  l=${logo[$i]:-"                  "}
+  s=${stats[$i]:-""}
+  printf "%-20s  %s\n" "$l" "$s"
+done
