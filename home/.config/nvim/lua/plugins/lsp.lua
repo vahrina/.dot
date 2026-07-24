@@ -8,7 +8,7 @@ return {
     require("mason").setup()
     require("mason-lspconfig").setup({
       ensure_installed = { "cssls" },
-      automatic_installation = true,
+      automatic_installation = false,
     })
 
     local lspconfig = require("lspconfig")

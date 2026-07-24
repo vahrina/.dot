@@ -1,0 +1,10 @@
+icons: nerd
+sort: uptime
+columns:
+- status
+- name
+- cpu
+- memory
+- net_tx
+- net_rx
+- uptime

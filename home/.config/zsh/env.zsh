@@ -7,7 +7,7 @@ VISUAL=$EDITOR
 
 # go bin
 GOROOT="/usr/local/go"
-GOPATH="/usr/local/go/packages"
+GOPATH="$HOME/go"
 GOTELEMETRY=off
 
 # pnpm
