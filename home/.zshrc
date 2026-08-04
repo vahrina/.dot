@@ -26,12 +26,11 @@ zinit light zsh-users/zsh-history-substring-search
 zinit light zsh-users/zsh-syntax-highlighting
 
 # -- load own config stuff
-for f in "$HOME"/.config/zsh/{env.zsh,alias.zsh,keybinds.zsh,functions/*.zsh}; do source "$f"; done
+for f in "$HOME"/.config/zsh/{env.zsh,alias.zsh,keybind.zsh,functions/*.zsh}; do source "$f"; done
 
 # -- rest stuff
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh --cmd zd)"
-(cat ~/.cache/wal/sequences &)
 
 # -- logo
 inf

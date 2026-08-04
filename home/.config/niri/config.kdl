@@ -1,0 +1,271 @@
+// this config is in the KDL format: https://kdl.dev
+// full wiki: https://niri-wm.github.io/niri/Configuration:-Introduction
+
+// input device config (https://niri-wm.github.io/niri/Configuration:-Input)
+input {
+  keyboard {
+    xkb {
+      layout "us"
+    }
+  }
+
+  touchpad {
+    tap
+    natural-scroll
+    accel-speed 0.3
+  }
+
+  mouse {
+  }
+
+  trackpoint {
+  }
+
+  warp-mouse-to-focus
+}
+
+// output devices (https://niri-wm.github.io/niri/Configuration:-Outputs)
+// configure outputs by their name `niri msg outputs`
+output "eDP-1" {
+  // off
+  // mode "1920x1080@120.030"
+  scale 1
+  transform "normal"
+}
+
+// window management (https://niri-wm.github.io/niri/Configuration:-Layout)
+layout {
+  gaps 16
+  center-focused-column "never"
+
+  // mod+r
+  preset-column-widths {
+    proportion 0.5
+    proportion 0.7
+    proportion 1.0
+  }
+
+  // mod+ctrl+shift+r
+  preset-window-heights {
+    proportion 0.5
+    proportion 1.0
+  }
+
+  default-column-width {
+    proportion 0.5
+  }
+
+  focus-ring {
+    off
+    // width 4
+
+    // colors can be set in a variety of ways:
+    // - named colors: "red"
+    // - hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
+    // - css: "rgb(255, 127, 0)", rgba(), hsl(), etc
+  }
+
+  // borders are always visible, whereas focus ring is limited to monitors
+  border {
+    on
+    width 4
+    urgent-color "#9b0000"
+  }
+
+  shadow {
+    // by default, the shadow draws only around its window, and not behind it.
+    // note that niri has no way of knowing about the csd window corner
+    // radius. it has to assume that windows have square corners, leading to
+    // shadow artifacts inside the csd rounded corners. this setting fixes
+    // those artifacts
+    //
+    // however, instead you may want to set prefer-no-csd and/or
+    // geometry-corner-radius. then, niri will know the corner radius and
+    // draw the shadow correctly, without having to draw it behind the
+    // window. these will also remove client-side shadows if the window
+    // draws any
+    on
+    draw-behind-window true
+    softness 20
+    spread 8
+    offset x=0 y=5
+    color "#0007"
+  }
+
+  struts {
+    // left 64
+    // right 64
+    // top 64
+    // bottom 64
+  }
+}
+
+// add lines like this to spawn processes at startup
+// note that running niri as a session supports xdg-desktop-autostart, which may be more convenient to use
+spawn-at-startup "noctalia"
+// to run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
+// spawn-sh-at-startup "qs -c ~/source/qs/myawesomeshell"
+
+hotkey-overlay {
+  skip-at-startup
+}
+
+prefer-no-csd
+
+// the path is formatted with strftime(3), disable with null
+screenshot-path "~/pictures/screens/%Y-%m-%d %H-%M-%S.png"
+
+// animation settings (https://niri-wm.github.io/niri/Configuration:-Animations)
+animations {
+  // off
+  // slow down all animations by this factor; values below 1 speeds them up instead
+  slowdown 1.85
+}
+
+// window rules (https://niri-wm.github.io/niri/Configuration:-Window-Rules)
+window-rule {
+  default-column-width {}
+}
+
+// open the firefox picture-in-picture player as floating by default
+window-rule {
+  // This app-id regular expression will work for both host & flatpak firefox
+  match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+  open-floating true
+}
+
+// block out password managers from screen capture
+window-rule {
+  match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+  match app-id=r#"^org\.gnome\.World\.Secrets$"#
+
+  block-out-from "screen-capture"
+}
+
+window-rule {
+  geometry-corner-radius 8
+  clip-to-geometry true
+}
+
+window-rule {
+  match app-id="dev.noctalia.Noctalia"
+  open-floating true
+}
+
+debug {
+  honor-xdg-activation-with-invalid-serial
+}
+
+binds {
+  // to find an xkb name for a particular key, you may use a program like wev
+  // most actions that you can bind here can also be invoked programmatically with `niri msg action do-something`
+
+  // defaults
+  mod+shift+slash { show-hotkey-overlay; }
+  mod+return hotkey-overlay-title="terminal" { spawn "foot"; }
+  mod+d hotkey-overlay-title="run an application: fuzzel" { spawn "fuzzel"; }
+  super+alt+l hotkey-overlay-title="lock the screen: swaylock" { spawn "swaylock"; }
+  mod+o repeat=false { toggle-overview; }
+  mod+q repeat=false { close-window; }
+  mod+touchpadscrolldown { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+"; }
+  mod+touchpadscrollup   { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02-"; }
+  mod+tab { focus-workspace-previous; }
+  mod+f { maximize-column; }
+  mod+shift+f { fullscreen-window; }
+  mod+m { maximize-window-to-edges; }
+  mod+c { center-column; }
+  mod+v { toggle-window-floating; }
+  print { screenshot; }
+  alt+print { screenshot-screen; }
+  mod+shift+e { quit; }
+  mod+shift+p { power-off-monitors; }
+
+  // volume keys
+  XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
+  XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+  XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+  XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+
+  // play buttons
+  XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+  XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
+  XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
+  XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+
+  // brightness
+  XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+5%"; }
+  XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "5%-"; }
+
+  // navigation
+  mod+h     { focus-column-left; }
+  mod+j     { focus-window-down; }
+  mod+k     { focus-window-up; }
+  mod+l     { focus-column-right; }
+  mod+u { focus-workspace-down; }
+  mod+i { focus-workspace-up; }
+
+  // swap windows
+  mod+shift+h     { move-column-left; }
+  mod+shift+l     { move-column-right; }
+
+  // move window to new workspace
+  mod+shift+j     { move-column-to-workspace-down; }
+  mod+shift+k     { move-column-to-workspace-up; }
+
+  // workspaces
+  mod+1 { focus-workspace 1; }
+  mod+2 { focus-workspace 2; }
+  mod+3 { focus-workspace 3; }
+  mod+4 { focus-workspace 4; }
+  mod+5 { focus-workspace 5; }
+  mod+6 { focus-workspace 6; }
+  mod+7 { focus-workspace 7; }
+  mod+8 { focus-workspace 8; }
+  mod+9 { focus-workspace 9; }
+  mod+ctrl+1 { move-column-to-workspace 1; }
+  mod+ctrl+2 { move-column-to-workspace 2; }
+  mod+ctrl+3 { move-column-to-workspace 3; }
+  mod+ctrl+4 { move-column-to-workspace 4; }
+  mod+ctrl+5 { move-column-to-workspace 5; }
+  mod+ctrl+6 { move-column-to-workspace 6; }
+  mod+ctrl+7 { move-column-to-workspace 7; }
+  mod+ctrl+8 { move-column-to-workspace 8; }
+  mod+ctrl+9 { move-column-to-workspace 9; }
+
+  // the following binds move the focused window in and out of a column
+  // if the window is alone, they will consume it into the nearby column to the side
+  // if the window is already in a column, they will expel it out
+  mod+bracketleft  { consume-or-expel-window-left; }
+  mod+bracketright { consume-or-expel-window-right; }
+
+  // consume one window from the right to the bottom of the focused column
+  mod+comma  { consume-window-into-column; }
+  // expel the bottom window from the focused column to the right
+  mod+period { expel-window-from-column; }
+
+  // cycle through widths set in preset-column-widths & reverse
+  mod+r { switch-preset-column-width; }
+  mod+shift+r { switch-preset-column-width-back; }
+  // vice versa preset-window-height
+  mod+ctrl+shift+r { switch-preset-window-height; }
+  mod+ctrl+r { reset-window-height; }
+
+  // manually change window width
+  mod+minus { set-column-width "-10%"; }
+  mod+equal { set-column-width "+10%"; }
+  // vice versa height
+  mod+shift+minus { set-window-height "-10%"; }
+  mod+shift+equal { set-window-height "+10%"; }
+
+  // applications such as remote-desktop clients and software kvm switches may
+  // request that niri stops processing the keyboard shortcuts defined here
+  // so they may, for example, forward the key presses as-is to a remote machine
+  // it's a good idea to bind an escape hatch to toggle the inhibitor,
+  // so a buggy application can't hold your session hostage
+  //
+  // the allow-inhibiting=false property can be applied to other binds as well,
+  // which ensures niri always processes them, even when an inhibitor is active
+  mod+escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+}
+
+include "noctalia.kdl"
