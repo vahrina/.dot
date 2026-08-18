@@ -20,7 +20,7 @@ things i've set up so far on my headless pi, homelabbing has gotten to me
   - [slskd](https://github.com/slskd/slskd)
   - [glance](https://github.com/glanceapp/glance/) with custom widgets:
     - imap-to-http proxy [img](./assets/imap.png); [mem usage](./assets/imap-stat.png)
-    - subsonic/navidrome current song playing [img](./assets/navi.png); [pr](./assets/navi-pr.png)
+    - subsonic/navidrome current song playing [img](./assets/navi.png); [pr](https://github.com/glanceapp/glance/pull/1040)
 
 ...& much more for mere ~500-700Mi
 
