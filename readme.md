@@ -10,12 +10,17 @@ things i've set up so far on my headless pi, homelabbing has gotten to me
 
 ## what's running?
 
-- pihole
-- grocery list (for mom!! :D)
-- navidrome + slskd
-- tailscale
-- ntfy
-- ssh
+- [pihole](https://github.com/pi-hole/pi-hole)
+- [nginx](https://github.com/nginx/nginx) running a grocery list  (for mom!! :D)
+- [tailscale](https://github.com/tailscale/tailscale)
+- discord bot (about ~55.5MB resident mem, deep_translator/dotenv & transitive deps add some minor overhead ofc)
+- ssh (duh)
+- containers:
+  - [navidrome](https://github.com/navidrome/navidrome/)
+  - [slskd](https://github.com/slskd/slskd)
+  - [glance](https://github.com/glanceapp/glance/) with custom widgets:
+    - imap-to-http proxy [img](./assets/imap.png); [mem usage](./assets/imap-stat.png)
+    - subsonic/navidrome current song playing [img](./assets/navi.png); [pr](./assets/navi-pr.png)
 
 ...& much more for mere ~500-700Mi
 
@@ -28,6 +33,8 @@ a pi 5 usually idles at ~2w, which is extremely low, but how about furthermore d
   <img src="./assets/l2.png" alt="3:28pm" width="32%">
   <img src="./assets/l3.png" alt="4:18pm" width="32%">
 </div>
+
+> obviously 1/5/15 minute differs from time to time
 
 "**does it even matter?**" while some options such as `vc4hdmi` for audio output through hdmi make little to no difference, other options as wifi/bluetooth consume _at least_ a minor margin, this is about microperfections, not a groundbreaking difference
 
@@ -304,3 +311,39 @@ sudo apt purge x11-common
   <img src="./assets/f2.png" alt="7:17pm" width="32%">
   <img src="./assets/f3.png" alt="7:18pm" width="32%">
 </div>
+
+~2 months later:
+
+<div align"center">
+  <img src="./assets/f4.png" alt="9:04am" width="47%">
+  <img src="./assets/f5.png" alt="9:04am" width="47%">
+</div>
+
+note that the output runs a bash script on every startup:
+
+```sh
+TEMP=$(awk '{printf "%.1f", $1/1000}' /sys/class/thermal/thermal_zone0/temp)
+TEMP_STATUS=$(
+  awk -v t="$TEMP" 'BEGIN{
+    if(t<50) print "🧊";
+    else if(t<55) print "☀️";
+    else print "🔥";
+  }'
+)
+LOAD=$(awk '{print $1", "$2", "$3}' /proc/loadavg)
+MEM=$(free -h | awk 'NR==2{printf "%s/%s", $3,$2}')
+DISK=$(df -h / | awk 'NR==2{printf "%s/%s", $3,$2}')
+UPTIME=$(uptime -p)
+
+STATS=$(
+  cat <<eof
+  cpu ~ ${TEMP}°C ${TEMP_STATUS}
+  avg ~ ${LOAD}
+  ram ~ ${MEM}
+  dsk ~ ${DISK}
+  upt ~ ${UPTIME}
+eof
+)
+```
+
+> the rest of the script sends a get request to [groq](https://api.groq.com/openai/v1/chat/completions) to make greeting more randomized & then piped into [glow](https://github.com/charmbracelet/glow)
