@@ -347,3 +347,35 @@ eof
 ```
 
 > the rest of the script sends a get request to [groq](https://api.groq.com/openai/v1/chat/completions) to make greeting more randomized & then piped into [glow](https://github.com/charmbracelet/glow)
+
+## any advice on storage?
+
+yes! but without bloating more of this readme, here's the tl;dr:
+
+clear **apt cache** (`/var/cache/apt/archives/`)
+
+```sh
+sudo apt clean && sudo apt autoclean
+```
+
+on sd cards: **move logs to memory**
+
+```sh
+sudo tee -a /etc/fstab <<'eof'
+tmpfs   /tmp            tmpfs   defaults,noatime,nosuid,size=50m    0 0
+tmpfs   /var/log        tmpfs   defaults,noatime,nosuid,size=50m    0 0
+tmpfs   /var/tmp        tmpfs   defaults,noatime,nosuid,size=30m    0 0
+eof
+
+# then also verify the new mountpoints exist
+sudo mount -a && df -h -t tmpfs # -> reboot if the first command succeeded
+```
+
+clean **docker & pip cache**
+
+```sh
+docker system prune -a
+pip cache purge
+```
+
+> more info & sources: [raspberry-tips](https://raspberry.tips/en/raspberrypi-tutorials/free-up-storage-raspberry-pi), [forums.raspberypi](https://forums.raspberrypi.com/viewtopic.php?t=317213), [raspberry-spy](https://www.raspberrypi-spy.co.uk/2018/03/free-space-raspberry-pi-sd-card/), [singleboardbytes](https://singleboardbytes.com/1017/free-space-raspberry-pi-sd-card.htm)
