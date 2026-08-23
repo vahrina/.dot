@@ -362,14 +362,16 @@ on sd cards: **move logs to memory**
 
 ```sh
 sudo tee -a /etc/fstab <<'eof'
-tmpfs   /tmp            tmpfs   defaults,noatime,nosuid,size=50m    0 0
-tmpfs   /var/log        tmpfs   defaults,noatime,nosuid,size=50m    0 0
-tmpfs   /var/tmp        tmpfs   defaults,noatime,nosuid,size=30m    0 0
+tmpfs   /tmp            tmpfs   defaults,noatime,nosuid,size=512m    0 0
+tmpfs   /var/log        tmpfs   defaults,noatime,nosuid,size=192m    0 0
+tmpfs   /var/tmp        tmpfs   defaults,noatime,nosuid,size=192m    0 0
 eof
 
 # then also verify the new mountpoints exist
 sudo mount -a && df -h -t tmpfs # -> reboot if the first command succeeded
 ```
+
+make sure `/tmp` has sufficient space, otherwise downloading/updating/changing (e.g. adding new domains to your blocklist in pihole/adguard) may raise insufficient disk space-errors
 
 clean **docker & pip cache**
 
