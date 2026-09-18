@@ -1,0 +1,37 @@
+.shell pwsh
+
+# focus
+alt + h : komorebic cycle-focus previous
+alt + j : komorebic focus down
+alt + k : komorebic focus up
+alt + l : komorebic cycle-focus next
+
+# move
+alt + shift + h : komorebic move left
+alt + shift + j : komorebic move down
+alt + shift + k : komorebic move up
+alt + shift + l : komorebic move right
+
+# workspaces
+alt + 1 : komorebic focus-workspace 0
+alt + 2 : komorebic focus-workspace 1
+alt + 3 : komorebic focus-workspace 2
+alt + 4 : komorebic focus-workspace 3
+
+# send to workspace
+alt + shift + 1 : komorebic move-to-workspace 0
+alt + shift + 2 : komorebic move-to-workspace 1
+alt + shift + 3 : komorebic move-to-workspace 2
+alt + shift + 4 : komorebic move-to-workspace 3
+
+# resize
+alt + oem_4         : komorebic resize-axis horizontal decrease
+alt + oem_6         : komorebic resize-axis horizontal increase
+
+# misc
+alt + q         : komorebic close
+alt + m         : komorebic minimize
+alt + f         : komorebic toggle-monocle
+alt + t         : komorebic toggle-float
+alt + shift + r : komorebic retile
+alt + shift + p : komorebic toggle-pause
