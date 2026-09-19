@@ -1,0 +1,49 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: install komorebi
+        shell: pwsh
+        run: |
+          $version = (Select-String `
+            -Path "komorebi.json" `
+            -Pattern 'komorebi/(v\d+\.\d+\.\d+)/schema\.json' `
+          ).Matches.Groups[1].Value
+
+          if (-not $version) {
+            throw "could not find komorebi version"
+          }
+
+          $release = $version.TrimStart('v')
+
+          Invoke-WebRequest `
+            -Uri "https://github.com/LGUG2Z/komorebi/releases/download/$version/komorebi-$release-x86_64.msi" `
+            -OutFile "$env:TEMP\komorebi.msi"
+
+          Start-Process msiexec.exe `
+            -ArgumentList "/i `"$env:TEMP\komorebi.msi`" /qn /norestart" `
+            -Wait
+
+          $path = (Get-ChildItem `
+            -Path "$env:ProgramFiles", "${env:ProgramFiles(x86)}" `
+            -Filter "komorebic.exe" `
+            -Recurse `
+            -ErrorAction SilentlyContinue `
+          ).DirectoryName | Select-Object -First 1
+
+          if (-not $path) {
+            throw "could not find komorebic.exe"
+          }
+
+          Add-Content $env:GITHUB_PATH $path
+
+      - name: validate config
+        shell: pwsh
+        run: komorebic.exe check --komorebi-config "$PWD\komorebi.json"
