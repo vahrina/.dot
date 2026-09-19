@@ -25,7 +25,7 @@
     "duration": 200,
     "fps": 120,
     "style": {
-      "movement": "EaseOutCubic",
+      "movement": "EaseOutCubic"
     }
   },
 
@@ -38,19 +38,20 @@
   },
 
   // aaaaaaall the monitors
+  "display_index_preferences": {
+    "0": "H1AK500000",
+    "1": "6CM3262XTQ"
+  },
+
   "monitors": [
     {
-      "name": "DISPLAY1",
-      "index": 0,
       "workspaces": [
-        { "name": "i",   "layout": "Scrolling" },
+        { "name": "i",   "layout": "Scrolling", "layout_options": { "scrolling": { "columns": 3 } }, },
         { "name": "ii",  "layout": "Scrolling" },
-        { "name": "iii", "layout": "Scrolling" },
+        { "name": "iii", "layout": "Scrolling" }
       ]
     },
     {
-      "name": "DISPLAY2",
-      "index": 1,
       "workspaces": [
         { "name": "top", "layout": "Columns" }
       ]

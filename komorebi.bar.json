@@ -1,11 +1,14 @@
 {
+  // important
   "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/v0.1.41/schema.bar.json",
   "monitor": 1,
+  "max_label_width": 1000,
 
   // font
-  "font_size": 18,
+  "font_size": 20,
   "font_family": "Maple Mono NF Regular",
 
+  // theme
   "theme": {
     "palette": "Base16",
     "name": "CatppuccinFrappe",
@@ -16,12 +19,23 @@
   "left_widgets": [
     {
       "Komorebi": {
-        "focused_window": {
+        "focused_container": {
           "enable": true,
-          "show_icon": false
+          "display": "Text"
         }
       }
     },
+    {
+      "Time": {
+        "enable": true,
+        "label_prefix": "None",
+        "format": {
+          "Custom": "[%H:%M]>%s %y/%j"
+          // %H     %M    %s      %y      %j
+          // hour   min   epoch   year    day of year
+        }
+      }
+    }
   ],
 
   "center_widgets": [
@@ -31,6 +45,13 @@
         "display": "Text"
       }
     },
+    {
+      "Update": {
+        "enable": true,
+        "data_refresh_interval": 24,
+        "label_prefix": "None"
+      }
+    }
   ],
 
   "right_widgets": [
@@ -38,14 +59,14 @@
       "Cpu": {
         "enable": true,
         "data_refresh_interval": 15,
-        "label_prefix": "Text"
+        "label_prefix": "None"
       }
     },
     {
       "Memory": {
         "enable": true,
         "data_refresh_interval": 15,
-        "label_prefix": "Text"
+        "label_prefix": "None"
       }
     },
     {
@@ -63,6 +84,6 @@
         "data_refresh_interval": 0,
         "label_prefix": "Text"
       }
-    },
+    }
   ]
 }
