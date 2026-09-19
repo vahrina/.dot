@@ -1,7 +1,7 @@
 {
+  // config n stuff heh
   "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/v0.1.41/schema.json",
   "app_specific_configuration_path": "$Env:KOMOREBI_CONFIG_HOME/applications.json",
-  "cross_monitor_move_behaviour": "Insert",
 
   // padding
   "default_workspace_padding": 8,
@@ -15,7 +15,10 @@
 
   // misc
   "resize_delta": 350, // wide monitor
+  "floating_window_aspect_ratio": "Ultrawide",
   "mouse_follows_focus": true,
+  "slow_application_compensation_time": 5,
+  "cross_monitor_move_behaviour": "Insert",
 
   "animation": {
     "enabled": true,
