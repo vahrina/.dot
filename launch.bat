@@ -19,4 +19,4 @@ if not defined WHKD_CONFIG_HOME (
   set "WHKD_CONFIG_HOME=%CONF%"
 )
 
-komorebic start --whkd -c "%KOMOREBI_CONFIG_HOME%\komorebi.json"
+komorebic start --whkd --bar -c "%KOMOREBI_CONFIG_HOME%\komorebi.json"
