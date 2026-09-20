@@ -5,7 +5,7 @@ hugo-fast() {
 
   [[ -f $f && -w $f ]] || { printf "[err] created missing '%s'\n" "$f" >&2; touch "$f"; }
   : > "$f"
-  hugo server --noHTTPCache -D > "$f" 2>&1 &
+  hugo server --noHTTPCache -D -F > "$f" 2>&1 &
   sleep 2
 
   pid=$(pgrep -f 'hugo server')
