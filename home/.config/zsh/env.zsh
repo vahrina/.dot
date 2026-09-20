@@ -43,8 +43,9 @@ MANPAGER=less
 
 # nnn
 NNN_PLUG='f:finder;v:imgview;x:!chmod 740 +x $nnn'
-NNN_ARCHIVE="\\.(tar|zip)$"
-NNN_OPTS="acCdEHrUz"
+NNN_ARCHIVE='\\.(tar|zip)$'
+NNN_OPTS='acdEHrUz'
+NNN_FCOLORS='b4b46e6cf17373f08af1f18b'
 
 # pager colors
 LESS_TERMCAP_mb=$'\e[1;38;5;183m'
