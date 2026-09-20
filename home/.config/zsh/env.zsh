@@ -32,6 +32,7 @@ path=(
   "$GOPATH/bin"
   "$PNPM_HOME/bin"
   "$HOME/bin"
+  "$HOME/.deno/bin"
   $path
 )
 
@@ -39,6 +40,11 @@ path=(
 COLORTERM=truecolor
 GROFF_NO_SGR=1
 MANPAGER=less
+
+# nnn
+NNN_PLUG='f:finder;v:imgview;x:!chmod 740 +x $nnn'
+NNN_ARCHIVE="\\.(tar|zip)$"
+NNN_OPTS="acCdEHrUz"
 
 # pager colors
 LESS_TERMCAP_mb=$'\e[1;38;5;183m'
