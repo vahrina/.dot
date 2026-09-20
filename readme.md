@@ -1,4 +1,4 @@
-personal dotfiles, managed with [stow](https://www.gnu.org/software/stow/)
+personal dotfiles, managed with [stow](https://www.gnu.org/software/stow/) (apart from [win](https://github.com/vahrina/.dot/tree/win)]
 
 | branch	| machine	| distro		| notes |
 |:-------------:|:-------------:|:---------------------:|:----------|
@@ -6,3 +6,4 @@ personal dotfiles, managed with [stow](https://www.gnu.org/software/stow/)
 | [x86-64-fedora](https://github.com/vahrina/.dot/tree/x86-64-fedora)	| laptop	| fedora			| niri & noctalia |
 | [x86-64-wsl](https://github.com/vahrina/.dot/tree/x86-64-wsl)	| wsl		| ubuntu 22.04.5 lts	| |
 | [arm64](https://github.com/vahrina/.dot/tree/arm64)		| rpi 5		| ubuntu 24.04.4 lts	| |
+| [win](https://github.com/vahrina/.dot/tree/win)   |   win |   11  | |
