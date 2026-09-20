@@ -1,4 +1,4 @@
-personal dotfiles, managed with [stow](https://www.gnu.org/software/stow/) (apart from [win](https://github.com/vahrina/.dot/tree/win)]
+personal dotfiles, managed with [stow](https://www.gnu.org/software/stow/) (apart from [win](https://github.com/vahrina/.dot/tree/win))
 
 | branch	| machine	| distro		| notes |
 |:-------------:|:-------------:|:---------------------:|:----------|
