@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+
+# Description: Navigate to directory using zoxide
+#
+# Dependencies:
+#   - zoxide - https://github.com/ajeetdsouza/zoxide
+#   - fzf (optional, enables interactive picker)
+#
+# Note: zoxides STORES NAVIGATION PATTERNS
+#
+# Shell: POSIX compliant
+# Authors: Marty Buchaus, Dave Snider, Tim Adler, Nick Waywood, Markus Meier
+# modified to be stripped down to zoxide only by github.com/vahrina
+
+if [ ! -p "$NNN_PIPE" ]; then
+  printf 'ERROR: NNN_PIPE is not set!'
+  read -r _
+  exit 2
+fi
+
+if ! type zoxide >/dev/null 2>&1; then
+  printf "zoxide not found"
+  read -r _
+  exit 2
+fi
+
+if type fzf >/dev/null 2>&1; then
+  odir="$(zoxide query -i --)"
+else
+  printf "jump to: "
+  read -r dir
+  odir="$(zoxide query -- "$dir")"
+fi
+
+printf "%s" "0c$odir" >"$NNN_PIPE"
