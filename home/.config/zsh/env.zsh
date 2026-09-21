@@ -42,7 +42,7 @@ GROFF_NO_SGR=1
 MANPAGER=less
 
 # nnn
-NNN_PLUG='f:fzcd;v:imgview;x:!chmod 740 "$nnn";z:autojump;k:pskill'
+NNN_PLUG='f:fzcd;v:imgview;x:!chmod 740 "$nnn"*;z:autojump;k:pskill'
 NNN_ARCHIVE='\\.(tar|zip)$'
 NNN_OPTS='acdEHrUz'
 NNN_FCOLORS='b4b46e6cf17373f08af1f18b'
