@@ -2,7 +2,11 @@ name: validate
 
 on:
   push:
+    paths:
+      - 'home/.config/komorebi/**'
   pull_request:
+    paths:
+      - 'home/.config/komorebi/**'
 
 jobs:
   validate:
@@ -13,7 +17,7 @@ jobs:
         shell: pwsh
         run: |
           $version = (Select-String `
-            -Path "komorebi.json" `
+          -Path "home/.config/komorebi/komorebi.json" `
             -Pattern 'komorebi/(v\d+\.\d+\.\d+)/schema\.json' `
           ).Matches.Groups[1].Value
 
@@ -46,4 +50,4 @@ jobs:
 
       - name: validate config
         shell: pwsh
-        run: komorebic.exe check --komorebi-config "$PWD\komorebi.json"
+        run: komorebic.exe check --komorebi-config "$PWD\home\.config\komorebi\komorebi.json"
