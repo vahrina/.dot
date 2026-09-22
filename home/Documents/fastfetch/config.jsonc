@@ -1,0 +1,61 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "type": "file",
+	"source": "~/Documents/fastfetch/ascii-ribbon.txt",
+        "color": {
+            "1": "white"
+        },
+        "padding": {
+            "top": 1,
+            "right": 4
+        }
+    },
+    "display": {
+        "separator": " >",
+        "color": {
+            "keys": "bright_black"
+        },
+        "key": {
+            "width": 10
+        }
+    },
+    "modules": [
+        {
+            "type": "os",
+            "key": "sys",
+            "format": "{codename} :: {arch}"
+        },
+        {
+            "type": "kernel",
+            "key": "krn",
+            "format": "{release}"
+        },
+        {
+            "type": "shell",
+            "key": "shl",
+            "format": "{pretty-name} :: {version}"
+        },
+        {
+            "type": "terminal",
+            "key": "trm",
+            "format": "{pretty-name} :: {pid}"
+        },
+        {
+            "type": "cpu",
+            "key": "cpu",
+            "format": "{name}"
+        },
+        {
+            "type": "memory",
+            "key": "mem",
+            "format": "{used} // {total}"
+        },
+        "break",
+        {
+            "type": "colors",
+            "symbol": "rect"
+        },
+        "break"
+    ]
+}
