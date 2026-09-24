@@ -25,8 +25,8 @@ alt + shift + 3 : komorebic move-to-workspace 2
 alt + shift + 4 : komorebic move-to-workspace 3
 
 # resize
-alt + oem_4         : komorebic resize-axis horizontal decrease
-alt + oem_6         : komorebic resize-axis horizontal increase
+alt + vk_oem_comma  : komorebic resize-axis horizontal decrease
+alt + vk_oem_period : komorebic resize-axis horizontal increase
 
 # misc
 alt + q         : komorebic close
