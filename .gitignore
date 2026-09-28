@@ -1,3 +1,10 @@
 schema.json
 applications.json
 desktop.ini
+History*
+*.bak
+cache_*
+owned_api_key*
+Flow.Launcher.Plugin.OneTimePassword/
+UserSelectedRecord.json
+MultipleTopMostRecord.json
