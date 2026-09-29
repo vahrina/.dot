@@ -17,3 +17,9 @@ opt.wrap = true
 opt.undofile = true
 opt.swapfile = false
 opt.confirm = true
+
+local prov = vim.g
+
+prov.loaded_node_provider = 0
+prov.loaded_perl_provider = 0
+prov.loaded_python3_provider = 0
