@@ -11,7 +11,7 @@ things i've set up so far on my headless pi, homelabbing has gotten to me
 ## what's running?
 
 - [pihole](https://github.com/pi-hole/pi-hole)
-- [nginx](https://github.com/nginx/nginx) running a grocery list  (for mom!! :D)
+- ~~[nginx](https://github.com/nginx/nginx) running a grocery list  (for mom!! :D)~~
 - [tailscale](https://github.com/tailscale/tailscale)
 - discord bot (about ~55.5MB resident mem, [deep_translator](https://pypi.org/project/deep-translator/)/[dotenv](https://pypi.org/project/python-dotenv/) & transitive deps add some minor overhead ofc)
 - ssh (duh)
