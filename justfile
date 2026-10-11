@@ -4,7 +4,7 @@ default:
   @just --list
 
 # run everything below
-backup: komo flow
+backup: komo flow ffetch
 
 komo *args:
   @{{rs}} {{args}} \
