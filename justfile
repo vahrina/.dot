@@ -17,6 +17,7 @@ flow *args:
     --exclude='*.bak' --exclude='cache_*' --exclude='owned_api_key.*' \
     --exclude='Flow.Launcher.Plugin.OneTimePassword/' \
     --exclude='UserSelectedRecord.json' --exclude='MultipleTopMostRecord.json' \
+    --exclude='History*' \
     --include='Settings/***' --include='Themes/***' --exclude='*' \
     "$(ls -d /mnt/c/Users/$USER/Documents/FlowLauncher/app-*/UserData | sort -V | tail -1)/" \
     "$HOME/.dot/home/Documents/FlowLauncher/UserData/"
