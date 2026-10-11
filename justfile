@@ -21,3 +21,8 @@ flow *args:
     --include='Settings/***' --include='Themes/***' --exclude='*' \
     "$(ls -d /mnt/c/Users/$USER/Documents/FlowLauncher/app-*/UserData | sort -V | tail -1)/" \
     "$HOME/.dot/home/Documents/FlowLauncher/UserData/"
+
+ffetch *args:
+  @{{rs}} {{args}} \
+  "/mnt/c/Users/$USER/Documents/fastfetch/" \
+  "$HOME/.dot/home/Documents/fastfetch/"
