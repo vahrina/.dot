@@ -1,12 +1,12 @@
 {
-  "EnableQuickAccessHotKey": true,
+  "EnableQuickAccessHotKey": false,
   "QuickAccessHotKey": {
     "Ctrl": true,
-    "Shift": false,
-    "Alt": true,
+    "Shift": true,
+    "Alt": false,
     "Win": false,
     "Key": 68
   },
   "SearchWindowsAcrossAllVDesktop": true,
-  "SearchCloakedWindows": false
+  "SearchCloakedWindows": true
 }

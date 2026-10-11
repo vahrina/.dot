@@ -3,7 +3,7 @@
   "OpenResultModifiers": "Alt",
   "ColorScheme": "Dark",
   "ShowOpenResultHotkey": true,
-  "WindowSize": 707.2,
+  "WindowSize": 795.2,
   "PreviewHotkey": "F1",
   "AutoCompleteHotkey": "Ctrl \u002B Tab",
   "AutoCompleteHotkey2": "",
@@ -21,7 +21,7 @@
   "DialogJumpHotkey": "Alt \u002B G",
   "Language": "system",
   "Theme": "tahoe",
-  "UseDropShadowEffect": false,
+  "UseDropShadowEffect": true,
   "BackdropType": 1,
   "ReleaseNotesVersion": "2.1.4",
   "WindowHeightSize": 44,
@@ -59,13 +59,13 @@
   "SettingWindowLeft": 12,
   "SettingWindowState": 0,
   "ShowPlaceholder": false,
-  "PlaceholderText": "a ",
+  "PlaceholderText": "",
   "ShowHomePage": true,
   "ShowHistoryResultsForHomePage": false,
   "MaxHistoryResultsToShowForHomePage": 5,
-  "AutoRestartAfterChanging": false,
+  "AutoRestartAfterChanging": true,
   "ShowUnknownSourceWarning": true,
-  "AutoUpdatePlugins": true,
+  "AutoUpdatePlugins": false,
   "CustomExplorerIndex": 0,
   "CustomExplorerList": [
     {
@@ -154,7 +154,7 @@
   "AlwaysStartEn": false,
   "QuerySearchPrecision": "Regular",
   "AutoUpdates": true,
-  "WindowLeft": 1022.4,
+  "WindowLeft": 978.4,
   "WindowTop": 277,
   "PreviousScreenWidth": 0,
   "PreviousScreenHeight": 0,
@@ -163,8 +163,8 @@
   "CustomWindowLeft": 0,
   "CustomWindowTop": 0,
   "KeepMaxResults": true,
-  "MaxResultsToShow": 6,
-  "ActivateTimes": 227,
+  "MaxResultsToShow": 5,
+  "ActivateTimes": 1020,
   "CustomPluginHotkeys": [],
   "CustomShortcuts": [],
   "DontPromptUpdateMsg": false,
@@ -172,13 +172,13 @@
   "StartFlowLauncherOnSystemStartup": true,
   "UseLogonTaskForStartup": true,
   "HideOnStartup": true,
-  "HideNotifyIcon": false,
+  "HideNotifyIcon": true,
   "LeaveCmdOpen": false,
   "HideWhenDeactivated": true,
-  "ShowTaskbarWhenInvoked": false,
+  "ShowTaskbarWhenInvoked": true,
   "ShowAtTopmost": true,
-  "SearchQueryResultsWithDelay": false,
-  "SearchDelayTime": 150,
+  "SearchQueryResultsWithDelay": true,
+  "SearchDelayTime": 100,
   "SearchWindowScreen": "Primary",
   "SearchWindowAlign": "Center",
   "CustomScreenNumber": 1,
@@ -190,7 +190,7 @@
     "UserName": null,
     "Password": null
   },
-  "LastQueryMode": "Selected",
+  "LastQueryMode": "Empty",
   "AnimationSpeed": "Medium",
   "CustomAnimationLength": 360,
   "PluginSettings": {
@@ -202,7 +202,7 @@
         "Name": "Calculator",
         "Version": "2.1.4",
         "ActionKeywords": [
-          "cal"
+          "calc"
         ],
         "Priority": 0,
         "SearchDelayTime": null,
@@ -215,7 +215,6 @@
         "Version": "2.1.4",
         "ActionKeywords": [
           "*",
-          "doc:",
           "*",
           "*",
           "*"
@@ -342,7 +341,7 @@
         ],
         "Priority": 0,
         "SearchDelayTime": null,
-        "Disabled": false,
+        "Disabled": true,
         "HomeDisabled": false
       },
       "A7F3D5C2E9B4F18072C3D5E6F7A8B9C0": {
@@ -363,6 +362,18 @@
         "Version": "3.1.0",
         "ActionKeywords": [
           "w"
+        ],
+        "Priority": 0,
+        "SearchDelayTime": null,
+        "Disabled": false,
+        "HomeDisabled": false
+      },
+      "a5d2f1c8-3e47-4b9a-8c0d-7f6e5a4b3c2d": {
+        "ID": "a5d2f1c8-3e47-4b9a-8c0d-7f6e5a4b3c2d",
+        "Name": "steamflow",
+        "Version": "0.5",
+        "ActionKeywords": [
+          "steam"
         ],
         "Priority": 0,
         "SearchDelayTime": null,

@@ -1,7 +1,14 @@
 {
-  "LastIndexTime": "2026-09-28T22:51:35.1645032+02:00",
+  "LastIndexTime": "2026-10-10T19:40:13.8683957+02:00",
   "ProgramSources": [],
-  "DisabledProgramSources": [],
+  "DisabledProgramSources": [
+    {
+      "Location": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Revo Uninstaller",
+      "Name": "Revo Uninstaller Help",
+      "Enabled": false,
+      "UniqueIdentifier": "c:\\programdata\\microsoft\\windows\\start menu\\programs\\revo uninstaller\\revo uninstaller help.lnk"
+    }
+  ],
   "CustomSuffixes": [],
   "CustomProtocols": [],
   "BuiltinSuffixesStatus": {

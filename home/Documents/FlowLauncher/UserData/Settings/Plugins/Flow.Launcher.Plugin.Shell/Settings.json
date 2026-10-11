@@ -8,6 +8,10 @@
   "ShowOnlyMostUsedCMDs": true,
   "ShowOnlyMostUsedCMDsNumber": 5,
   "CommandHistory": {
-    "wsl": 2
+    "wsl": 5,
+    "komorebic start --bar": 2,
+    "komorebic start --bar \u0026\u0026 exit": 1,
+    "komorebic start --bar; if ($?) { exit }": 1,
+    "diskpart": 1
   }
 }
