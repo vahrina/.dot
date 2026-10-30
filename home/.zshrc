@@ -17,6 +17,7 @@ unsetopt BEEP
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 source "$ZINIT_HOME/zinit.zsh"
 
+fpath=(~/.config/zsh/completions $fpath)
 autoload -Uz compinit && compinit
 
 zinit snippet OMZP::git
