@@ -8,3 +8,6 @@ owned_api_key*
 Flow.Launcher.Plugin.OneTimePassword/
 UserSelectedRecord.json
 MultipleTopMostRecord.json
+
+home/.config/gh/
+home/.config/zsh/
