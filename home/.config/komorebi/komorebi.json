@@ -46,9 +46,9 @@
   "monitors": [
     {
       "workspaces": [
-        { "name": "i",   "layout": "Scrolling", "layout_options": { "scrolling": { "columns": 3 } }, },
-        { "name": "ii",  "layout": "Scrolling" },
-        { "name": "iii", "layout": "Scrolling" }
+        { "name": "i",   "layout": "Columns" },
+        { "name": "ii",  "layout": "Columns" },
+        { "name": "iii", "layout": "Columns" }
       ]
     },
     {
